@@ -1,0 +1,20 @@
+关于 Android 应用角标
+已适配 Huawei HTC LG Nova OPPO Samsung Sony Vivo Xiaomi
+
+使用
+添加 :
+    try {
+            BadgerUtil.createBadger(App.sContext,1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+移除 :
+    try {
+             BadgerUtil.removeBadger(App.sContext);
+         } catch (Exception e) {
+            e.printStackTrace();
+         }
+
+ 参考来自 : https://github.com/xuyisheng/ShortcutHelper
+           https://github.com/leolin310148/ShortcutBadger
