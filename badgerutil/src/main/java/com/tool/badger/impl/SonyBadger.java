@@ -12,7 +12,7 @@ import java.util.List;
  * 索尼
  * Created by wong on 17-3-16.
  */
-public class SonyBadger extends BaseBadger{
+public class SonyBadger extends BaseBadger {
     @Override
     public void executeBadger(Context context, int badgeCount) {
         String launcherClassName = getLauncherClassName(context);
@@ -34,7 +34,7 @@ public class SonyBadger extends BaseBadger{
 
     @Override
     public void resetBadger(Context context) {
-        executeBadger(context,0);
+        executeBadger(context, 0);
     }
 
     @Override

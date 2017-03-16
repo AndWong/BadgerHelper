@@ -30,7 +30,7 @@ public class SamsungBadger extends BaseBadger {
 
     @Override
     public void resetBadger(Context context) {
-        executeBadger(context,0);
+        executeBadger(context, 0);
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.tool.badger.base;
 
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 
 import java.util.List;
 
@@ -16,19 +17,26 @@ public abstract class BaseBadger {
     public abstract List<String> getSupporLaucners();
 
     protected String getLauncherClassName(Context context) {
-        //方式一
-        /*PackageManager packageManager = context.getPackageManager();
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.setPackage(context.getPackageName());
-        intent.addCategory(Intent.CATEGORY_LAUNCHER);
-        ResolveInfo info = packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
-        if (info == null) {
-            info = packageManager.resolveActivity(intent, 0);
+        ComponentName componentName = getComponentName(context);
+        if (null == componentName) {
+            return "";
         }
-        return info.activityInfo.name;*/
-
-        //方式二
-        ComponentName componentName = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName()).getComponent();
         return componentName.getClassName();
+    }
+
+    protected String getLauncherPackageName(Context context) {
+        ComponentName componentName = getComponentName(context);
+        if (null == componentName) {
+            return "";
+        }
+        return componentName.getPackageName();
+    }
+
+    protected ComponentName getComponentName(Context context){
+        Intent launchIntent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
+        if (null == launchIntent) {
+            return null;
+        }
+        return launchIntent.getComponent();
     }
 }

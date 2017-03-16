@@ -17,7 +17,7 @@ import java.util.List;
  * 小米机型
  * Created by wong on 17-3-16.
  */
-public class XiaomiBadger extends BaseBadger{
+public class XiaomiBadger extends BaseBadger {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void executeBadger(Context context, int badgeCount) {
@@ -26,7 +26,7 @@ public class XiaomiBadger extends BaseBadger{
         Notification.Builder builder = new Notification.Builder(context)
                 .setContentTitle("title")
                 .setContentText("text");
-                //.setSmallIcon(R.drawable.icon);
+        //.setSmallIcon(R.drawable.icon);
         Notification notification = builder.build();
         try {
             Field field = notification.getClass().getDeclaredField("extraNotification");
@@ -36,12 +36,12 @@ public class XiaomiBadger extends BaseBadger{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        mNotificationManager.notify(0,notification);
+        mNotificationManager.notify(0, notification);
     }
 
     @Override
     public void resetBadger(Context context) {
-        executeBadger(context,0);
+        executeBadger(context, 0);
     }
 
     @Override

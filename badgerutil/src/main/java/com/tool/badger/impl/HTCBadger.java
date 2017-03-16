@@ -13,12 +13,15 @@ import java.util.List;
  * HTC
  * Created by wong on 17-3-16.
  */
-public class HTCBadger extends BaseBadger{
+public class HTCBadger extends BaseBadger {
     @Override
     public void executeBadger(Context context, int badgeCount) {
+        ComponentName componentName = getComponentName(context);
+        if (null == componentName) {
+            return;
+        }
         Intent intentNotification = new Intent("com.htc.launcher.action.SET_NOTIFICATION");
-        ComponentName localComponentName = new ComponentName(context.getPackageName(),getLauncherClassName(context));
-        intentNotification.putExtra("com.htc.launcher.extra.COMPONENT", localComponentName.flattenToShortString());
+        intentNotification.putExtra("com.htc.launcher.extra.COMPONENT", componentName.flattenToShortString());
         intentNotification.putExtra("com.htc.launcher.extra.COUNT", badgeCount);
         context.sendBroadcast(intentNotification);
 
@@ -30,7 +33,7 @@ public class HTCBadger extends BaseBadger{
 
     @Override
     public void resetBadger(Context context) {
-        executeBadger(context,0);
+        executeBadger(context, 0);
     }
 
     @Override

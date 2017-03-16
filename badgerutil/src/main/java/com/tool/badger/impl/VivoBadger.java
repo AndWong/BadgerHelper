@@ -2,6 +2,7 @@ package com.tool.badger.impl;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 
 import com.tool.badger.base.BaseBadger;
 
@@ -15,6 +16,10 @@ import java.util.List;
 public class VivoBadger extends BaseBadger{
     @Override
     public void executeBadger(Context context, int badgeCount) {
+        String launcherClassName = getLauncherClassName(context);
+        if(TextUtils.isEmpty(launcherClassName)){
+            return;
+        }
         Intent intent = new Intent("launcher.action.CHANGE_APPLICATION_NOTIFICATION_NUM");
         intent.putExtra("packageName", context.getPackageName());
         intent.putExtra("className", getLauncherClassName(context));

@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.tool.badger.base.BaseBadger;
 
@@ -33,11 +34,15 @@ public class OPPOBadger extends BaseBadger {
 
     @Override
     public void executeBadger(Context context, int badgeCount) {
+        String launcherPackageName = getLauncherPackageName(context);
+        if (TextUtils.isEmpty(launcherPackageName)) {
+            return;
+        }
         if (badgeCount == 0) {
             badgeCount = -1;
         }
         Intent intent = new Intent(INTENT_ACTION);
-        intent.putExtra(INTENT_EXTRA_PACKAGENAME, getLauncherClassName(context));
+        intent.putExtra(INTENT_EXTRA_PACKAGENAME, launcherPackageName);
         intent.putExtra(INTENT_EXTRA_BADGE_COUNT, badgeCount);
         intent.putExtra(INTENT_EXTRA_BADGE_UPGRADENUMBER, badgeCount);
         if (canResolveBroadcast(context, intent)) {
@@ -57,7 +62,7 @@ public class OPPOBadger extends BaseBadger {
 
     @Override
     public void resetBadger(Context context) {
-        executeBadger(context,0);
+        executeBadger(context, 0);
     }
 
     @Override
