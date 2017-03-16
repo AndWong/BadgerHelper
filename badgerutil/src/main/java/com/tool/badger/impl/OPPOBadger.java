@@ -57,7 +57,7 @@ public class OPPOBadger extends BaseBadger {
 
     @Override
     public void resetBadger(Context context) {
-
+        executeBadger(context,0);
     }
 
     @Override

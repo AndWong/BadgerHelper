@@ -1,7 +1,6 @@
 package com.tool.badger.impl;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -17,7 +16,6 @@ import java.util.List;
 public class HuaweiBadger extends BaseBadger{
     @Override
     public void executeBadger(Context context, int badgeCount) {
-        Intent launchIntent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
         Bundle localBundle = new Bundle();
         localBundle.putString("package", context.getPackageName());
         localBundle.putString("class", getLauncherClassName(context));
