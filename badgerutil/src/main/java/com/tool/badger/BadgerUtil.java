@@ -21,6 +21,7 @@ import java.util.List;
  */
 public class BadgerUtil {
     private static final List<Class<? extends BaseBadger>> sBADGERList = new LinkedList<>();
+
     static {
         sBADGERList.add(HuaweiBadger.class);
         sBADGERList.add(VivoBadger.class);
@@ -31,7 +32,25 @@ public class BadgerUtil {
 
     private static BaseBadger sBadger;
 
-    public static void createBadger(Context context,int count) throws Exception{
+    public static void createBadger(Context context, int count) throws Exception {
+        if (null == sBadger) {
+            initBadger(context);
+        }
+        if (null != sBadger) {
+            sBadger.executeBadger(context, count);
+        }
+    }
+
+    public static void removeBadger(Context context) throws Exception {
+        if (null == sBadger) {
+            initBadger(context);
+        }
+        if (null != sBadger) {
+            sBadger.resetBadger(context);
+        }
+    }
+
+    private static void initBadger(Context context) {
         for (Class<? extends BaseBadger> badger : sBADGERList) {
             BaseBadger baseBadger = null;
             try {
@@ -43,7 +62,7 @@ public class BadgerUtil {
                 break;
             }
         }
-        if(null == sBadger){
+        if (null == sBadger) {
             if (Build.MANUFACTURER.equalsIgnoreCase("xiaomi")) {
                 //sBadger = new XiaomiBadger();
             } else if (Build.MANUFACTURER.equalsIgnoreCase("sony")) {
@@ -54,24 +73,17 @@ public class BadgerUtil {
                 //sBadger = new HTCBadger();
             } else if (Build.MANUFACTURER.toLowerCase().contains("nova")) {
                 //sBadger = new NovaBadger();
-            } else if(Build.MANUFACTURER.toLowerCase().contains("lg")){
+            } else if (Build.MANUFACTURER.toLowerCase().contains("lg")) {
                 sBadger = new LGBadger();
-            }else if (Build.MANUFACTURER.equalsIgnoreCase("OPPO")) {
+            } else if (Build.MANUFACTURER.equalsIgnoreCase("OPPO")) {
                 sBadger = new OPPOBadger();
             } else if (Build.MANUFACTURER.equalsIgnoreCase("VIVO")) {
                 sBadger = new VivoBadger();
             }
         }
-        if(null != sBadger){
-            sBadger.executeBadger(context,count);
-        }
     }
 
-    public static void removeBadger(Context context) throws Exception{
-        sBadger.resetBadger(context);
-    }
-
-    private static String getHomePackageName(Context context){
+    private static String getHomePackageName(Context context) {
         PackageManager packageManager = context.getPackageManager();
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.setPackage(context.getPackageName());
