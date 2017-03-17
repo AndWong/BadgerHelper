@@ -18,3 +18,19 @@
 
  参考来自 : https://github.com/xuyisheng/ShortcutHelper
            https://github.com/leolin310148/ShortcutBadger
+
+
+可添加引用,如下
+Maven
+<dependency>
+  <groupId>com.tool.badger</groupId>
+  <artifactId>badgerutil</artifactId>
+  <version>1.0.0</version>
+  <type>pom</type>
+</dependency>
+
+或 Grale
+
+compile 'com.tool.badger:badgerutil:1.0.0'
+
+
