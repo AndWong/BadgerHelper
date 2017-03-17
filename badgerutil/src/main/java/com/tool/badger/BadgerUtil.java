@@ -67,31 +67,32 @@ public class BadgerUtil {
                 //sBadger = new XiaomiBadger();
             } else if (Build.MANUFACTURER.equalsIgnoreCase("sony")) {
                 //sBadger = new SonyBadger();
-            } else if (Build.MANUFACTURER.toLowerCase().contains("samsung")) {
-                sBadger = new SamsungBadger();
             } else if (Build.MANUFACTURER.toLowerCase().contains("htc")) {
                 //sBadger = new HTCBadger();
             } else if (Build.MANUFACTURER.toLowerCase().contains("nova")) {
                 //sBadger = new NovaBadger();
+            } else if (Build.MANUFACTURER.toLowerCase().contains("samsung")) {
+                sBadger = new SamsungBadger();
             } else if (Build.MANUFACTURER.toLowerCase().contains("lg")) {
                 sBadger = new LGBadger();
             } else if (Build.MANUFACTURER.equalsIgnoreCase("OPPO")) {
                 sBadger = new OPPOBadger();
             } else if (Build.MANUFACTURER.equalsIgnoreCase("VIVO")) {
                 sBadger = new VivoBadger();
+            } else if (Build.MANUFACTURER.equalsIgnoreCase("huawei")) {
+                sBadger = new HuaweiBadger();
             }
         }
     }
 
     private static String getHomePackageName(Context context) {
-        PackageManager packageManager = context.getPackageManager();
         Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.setPackage(context.getPackageName());
-        intent.addCategory(Intent.CATEGORY_LAUNCHER);
-        ResolveInfo info = packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
-        if (info == null) {
-            info = packageManager.resolveActivity(intent, 0);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        ResolveInfo resolveInfo = context.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
+        if (resolveInfo == null || null == resolveInfo.activityInfo
+                || resolveInfo.activityInfo.name.toLowerCase().contains("resolver")) {
+            return "";
         }
-        return info.activityInfo.name;
+        return resolveInfo.activityInfo.packageName;
     }
 }

@@ -23,4 +23,5 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:23.2.0'
     compile project(':badgerutil')
+    compile "me.leolin:ShortcutBadger:1.1.13@aar"
 }
